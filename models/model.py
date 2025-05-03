@@ -25,14 +25,14 @@ class user_model():
         self.cur.execute(f"INSERT INTO users(name, email, phone, role, password) VALUES('{data['name']}', '{data['email']}', '{data['phone']}', '{data['role']}', '{data['password']}')")
         return make_response({"message":"CREATED_SUCCESSFULLY"},201)
     
-    # def add_multiple_users_model(self, data):
-    #     # Generating query for multiple inserts
-    #     qry = "INSERT INTO users(name, email, phone, roleid, password) VALUES "
-    #     for userdata in data:
-    #         qry += f" ('{userdata['name']}', '{userdata['email']}', '{userdata['phone']}', {userdata['roleid']},'{userdata['password']}'),"
-    #     finalqry = qry.rstrip(",")
-    #     self.cur.execute(finalqry)
-    #     return make_response({"message":"CREATED_SUCCESSFULLY"},201)
+    def add_multiple_users_model(self, data):
+        # Generating query for multiple inserts
+        qry = "INSERT INTO users(name, email, phone, role_id, password) VALUES "
+        for userdata in data:
+            qry += f" ('{userdata['name']}', '{userdata['email']}', '{userdata['phone']}', {userdata['roleid']},'{userdata['password']}'),"
+        finalqry = qry.rstrip(",")
+        self.cur.execute(finalqry)
+        return make_response({"message":"CREATED_SUCCESSFULLY"},201)
 
     def delete_user_model(self,id):
         self.cur.execute(f"DELETE FROM users WHERE id={id}")
@@ -90,17 +90,17 @@ class user_model():
             return "No Data Found"  
         
     def user_login_model(self, username, password):
-        self.cur.execute(f"SELECT id, roleid, avatar, email, name, phone from users WHERE email='{username}' and password='{password}'")
+        self.cur.execute(f"SELECT id, role_id, avatar, email, name, phone from users WHERE email='{username}' and password='{password}'")
         result = self.cur.fetchall()
         if len(result)==1:
             exptime = datetime.now() + timedelta(minutes=15)
-            exp_epoc_time = exptime.timestamp()
+            exp_epoch_time = exptime.timestamp()
             data = {
                 "payload":result[0],
-                "exp":int(exp_epoc_time)
+                "exp":int(exp_epoch_time)
             }
-            print(int(exp_epoc_time))
-            jwt_token = jwt.encode(data, "Sagar@123", algorithm="HS256")
+            print(int(exp_epoch_time))
+            jwt_token = jwt.encode(data, "yogin", algorithm="HS256")
             return make_response({"token":jwt_token}, 200)
         else:
             return make_response({"message":"NO SUCH USER"}, 204)
