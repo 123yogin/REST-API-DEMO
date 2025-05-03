@@ -73,12 +73,12 @@ class user_model():
         else:
             return make_response({"message":"No Data Found"}, 204)
 
-    # def upload_avatar_model(self, uid, db_path):
-    #     self.cur.execute(f"UPDATE users SET avatar='{db_path}' WHERE id={uid}")
-    #     if self.cur.rowcount>0:
-    #         return make_response({"message":"FILE_UPLOADED_SUCCESSFULLY", "path":db_path},201)
-    #     else:
-    #         return make_response({"message":"NOTHING_TO_UPDATE"},204)
+    def upload_avatar_model(self, uid, db_path):
+        self.cur.execute(f"UPDATE users SET avatar='{db_path}' WHERE id={uid}")
+        if self.cur.rowcount>0:
+            return make_response({"message":"FILE_UPLOADED_SUCCESSFULLY", "path":db_path},201)
+        else:
+            return make_response({"message":"NOTHING_TO_UPDATE"},204)
 
     # def get_avatar_path_model(self, uid):
     #     self.cur.execute(f"SELECT avatar FROM users WHERE id={uid}")

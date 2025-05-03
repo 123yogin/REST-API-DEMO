@@ -39,16 +39,16 @@ def patch_user():
 def pagination(pno, limit):
     return obj.pagination_model(pno, limit)
 
-# @app.route("/user/<uid>/avatar/upload", methods=["PATCH"])
-# def upload_avatar(uid):
-#     file = request.files['avatar']
-#     new_filename =  str(datetime.now().timestamp()).replace(".", "") # Generating unique name for the file
-#     split_filename = file.filename.split(".") # Spliting ORIGINAL filename to seperate extenstion
-#     ext_pos = len(split_filename)-1 # Canlculating last index of the list got by splitting the filname
-#     ext = split_filename[ext_pos] # Using last index to get the file extension
-#     db_path = f"uploads/{new_filename}.{ext}"
-#     file.save(f"uploads/{new_filename}.{ext}")
-#     return obj.upload_avatar_model(uid, db_path)
+@app.route("/user/<uid>/avatar/upload", methods=["PATCH"])
+def upload_avatar(uid):
+    file = request.files['avatar']
+    new_filename =  str(datetime.now().timestamp()).replace(".", "") # Generating unique name for the file
+    split_filename = file.filename.split(".") # Splitting ORIGINAL filename to separate extension
+    ext_pos = len(split_filename)-1 # Calculating last index of the list got by splitting the filename
+    ext = split_filename[ext_pos] # Using last index to get the file extension
+    db_path = f"uploads/{new_filename}.{ext}"
+    file.save(f"uploads/{new_filename}.{ext}")
+    return obj.upload_avatar_model(uid, db_path)
 
 # @app.route("/user/avatar/<uid>", methods=["GET"])
 # def get_avatar(uid):
