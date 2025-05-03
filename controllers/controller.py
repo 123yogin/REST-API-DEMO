@@ -55,7 +55,7 @@ def get_avatar(uid):
     data = obj.get_avatar_path_model(uid)
     return send_file(f"{data['payload'][0]['avatar']}")
 
-# @app.route("/user/login")
-# def user_login():
-#     auth_data = request.authorization
-#     return obj.user_login_model(auth_data['username'], auth_data['password'])
+@app.route("/user/login" )
+def user_login():
+    auth_data = request.authorization
+    return obj.user_login_model(auth_data['username'], auth_data['password'])

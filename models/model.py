@@ -89,19 +89,19 @@ class user_model():
         else:
             return "No Data Found"  
         
-    # def user_login_model(self, username, password):
-    #     self.cur.execute(f"SELECT id, roleid, avatar, email, name, phone from users WHERE email='{username}' and password='{password}'")
-    #     result = self.cur.fetchall()
-    #     if len(result)==1:
-    #         exptime = datetime.now() + timedelta(minutes=15)
-    #         exp_epoc_time = exptime.timestamp()
-    #         data = {
-    #             "payload":result[0],
-    #             "exp":int(exp_epoc_time)
-    #         }
-    #         print(int(exp_epoc_time))
-    #         jwt_token = jwt.encode(data, "Sagar@123", algorithm="HS256")
-    #         return make_response({"token":jwt_token}, 200)
-    #     else:
-    #         return make_response({"message":"NO SUCH USER"}, 204)
+    def user_login_model(self, username, password):
+        self.cur.execute(f"SELECT id, roleid, avatar, email, name, phone from users WHERE email='{username}' and password='{password}'")
+        result = self.cur.fetchall()
+        if len(result)==1:
+            exptime = datetime.now() + timedelta(minutes=15)
+            exp_epoc_time = exptime.timestamp()
+            data = {
+                "payload":result[0],
+                "exp":int(exp_epoc_time)
+            }
+            print(int(exp_epoc_time))
+            jwt_token = jwt.encode(data, "Sagar@123", algorithm="HS256")
+            return make_response({"token":jwt_token}, 200)
+        else:
+            return make_response({"message":"NO SUCH USER"}, 204)
             
