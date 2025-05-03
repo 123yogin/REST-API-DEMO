@@ -80,14 +80,14 @@ class user_model():
         else:
             return make_response({"message":"NOTHING_TO_UPDATE"},204)
 
-    # def get_avatar_path_model(self, uid):
-    #     self.cur.execute(f"SELECT avatar FROM users WHERE id={uid}")
-    #     result = self.cur.fetchall()
-    #     if len(result)>0:
-    #         print(type(result))
-    #         return {"payload":result}
-    #     else:
-    #         return "No Data Found"  
+    def get_avatar_path_model(self, uid):
+        self.cur.execute(f"SELECT avatar FROM users WHERE id={uid}")
+        result = self.cur.fetchall()
+        if len(result)>0:
+            print(type(result))
+            return {"payload":result}
+        else:
+            return "No Data Found"  
         
     # def user_login_model(self, username, password):
     #     self.cur.execute(f"SELECT id, roleid, avatar, email, name, phone from users WHERE email='{username}' and password='{password}'")

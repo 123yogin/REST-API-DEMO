@@ -50,11 +50,11 @@ def upload_avatar(uid):
     file.save(f"uploads/{new_filename}.{ext}")
     return obj.upload_avatar_model(uid, db_path)
 
-# @app.route("/user/avatar/<uid>", methods=["GET"])
-# def get_avatar(uid):
-#     data = obj.get_avatar_path_model(uid)
-#     root_dir = os.path.dirname(app.instance_path)
-#     return send_file(f"{root_dir}{data['payload'][0]['avatar']}")
+@app.route("/user/avatar/<uid>", methods=["GET"])
+def get_avatar(uid):
+    data = obj.get_avatar_path_model(uid)
+    root_dir = os.path.dirname(app.instance_path)
+    return send_file(f"{root_dir}{data['payload'][0]['avatar']}")
 
 # @app.route("/user/login")
 # def user_login():
